@@ -3,22 +3,25 @@
 library (readxl)
 library (vegetarian)
 library (tidyverse)
-setwd ('c:\\Users\\zeleny\\Dropbox\\editor\\vegsciblog.org\\behind the paper\\20250521_Dembicz-Dengler_VCS\\')
 
-dA <- read_excel(path = "vegetation_classification_and_survey-006-133-s001_DZ.xlsx", sheet = "Dataset A")
-dAb <- read_excel(path = "vegetation_classification_and_survey-006-133-s001_DZ.xlsx", sheet = "Dataset A BrBl")
+url <- 'https://github.com/zdealveindy/percent-brbl-cover/raw/refs/heads/main/vegetation_classification_and_survey-006-133-s001_DZ.xlsx'
+destfile <- tempfile ()
+download.file (url, destfile, mode = 'wb')
+
+dA <- read_excel(path = destfile, sheet = "Dataset A")
+dAb <- read_excel(path = destfile, sheet = "Dataset A BrBl")
 dA <- dA %>% as.data.frame %>% select (-1) %>% mutate(across(everything(), ~replace_na(., 0))) %>% as.matrix
 dAb <- dAb %>% as.data.frame %>% select (-1) %>% mutate(across(everything(), ~replace_na(., 0))) %>% as.matrix
 plot (dAb ~ dA)
 
-dB <- read_excel(path = "vegetation_classification_and_survey-006-133-s001_DZ.xlsx", sheet = "Dataset B")
-dBb <- read_excel(path = "vegetation_classification_and_survey-006-133-s001_DZ.xlsx", sheet = "Dataset B BrBl")
+dB <- read_excel(path = destfile, sheet = "Dataset B")
+dBb <- read_excel(path = destfile, sheet = "Dataset B BrBl")
 dB <- dB %>% as.data.frame %>% select (-1) %>% mutate(across(everything(), ~replace_na(., 0))) %>% as.matrix
 dBb <- dBb %>% as.data.frame %>% select (-1) %>% mutate(across(everything(), ~replace_na(., 0))) %>% as.matrix
 plot (dBb ~ dB)
 
-dC <- read_excel(path = "vegetation_classification_and_survey-006-133-s001_DZ.xlsx", sheet = "Dataset C")
-dCb <- read_excel(path = "vegetation_classification_and_survey-006-133-s001_DZ.xlsx", sheet = "Dataset C BrBl")
+dC <- read_excel(path = destfile, sheet = "Dataset C")
+dCb <- read_excel(path = destfile, sheet = "Dataset C BrBl")
 dC <- dC %>% as.data.frame %>% select (-1) %>% mutate(across(everything(), ~replace_na(., 0))) %>% as.matrix
 dCb <- dCb %>% as.data.frame %>% select (-1) %>% mutate(across(everything(), ~replace_na(., 0))) %>% as.matrix
 plot (dCb ~ dC)
